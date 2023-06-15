@@ -511,5 +511,40 @@ cmp.setup {
   },
 }
 
+local rt = require("rust-tools")
+
+rt.setup {
+  tools = {
+    reload_workspace_from_cargo_toml = true,
+    hover_actions = {
+      auto_focus = true,
+    }
+  },
+  server = {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    standalone = false,
+    settings = {
+      ['rust-analyzer'] = {
+        cargo = {
+          buildScripts = {
+            enable = true,
+          },
+        },
+        procMacro = {
+          enable = true
+        },
+        checkOnSave = {
+          allFeatures = true,
+          overrideCommand = {
+            'cargo', 'clippy', '--workspace', '--message-format=json',
+            '--all-targets', '--all-features'
+          }
+        }
+      }
+    }
+  }
+}
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
