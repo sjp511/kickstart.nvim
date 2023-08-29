@@ -548,3 +548,6 @@ rt.setup {
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+vim.o.list = true
+vim.o.listchars = 'tab:»·,eol:↲,trail:·'
