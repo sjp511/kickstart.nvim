@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -835,7 +835,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'rust' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -908,14 +908,14 @@ require('lazy').setup({
   },
 })
 
-local rt = require("rust-tools")
+local rt = require 'rust-tools'
 
 rt.setup {
   tools = {
     reload_workspace_from_cargo_toml = true,
     hover_actions = {
       auto_focus = true,
-    }
+    },
   },
   server = {
     capabilities = capabilities,
@@ -929,18 +929,22 @@ rt.setup {
           },
         },
         procMacro = {
-          enable = true
+          enable = true,
         },
         checkOnSave = {
           allFeatures = true,
           overrideCommand = {
-            'cargo', 'clippy', '--workspace', '--message-format=json',
-            '--all-targets', '--all-features'
-          }
-        }
-      }
-    }
-  }
+            'cargo',
+            'clippy',
+            '--workspace',
+            '--message-format=json',
+            '--all-targets',
+            '--all-features',
+          },
+        },
+      },
+    },
+  },
 }
 
 -- The line beneath this is called `modeline`. See `:help modeline`
