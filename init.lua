@@ -622,6 +622,42 @@ require('lazy').setup({
           end,
         },
       }
+
+      require('rust-tools').setup {
+        tools = {
+          reload_workspace_from_cargo_toml = true,
+          hover_actions = {
+            auto_focus = true,
+          },
+        },
+        server = {
+          capabilities = capabilities,
+          standalone = false,
+          settings = {
+            ['rust-analyzer'] = {
+              cargo = {
+                buildScripts = {
+                  enable = true,
+                },
+              },
+              procMacro = {
+                enable = true,
+              },
+              checkOnSave = {
+                allFeatures = true,
+                overrideCommand = {
+                  'cargo',
+                  'clippy',
+                  '--workspace',
+                  '--message-format=json',
+                  '--all-targets',
+                  '--all-features',
+                },
+              },
+            },
+          },
+        },
+      }
     end,
   },
 
@@ -729,13 +765,13 @@ require('lazy').setup({
           -- Accept ([y]es) the completion.
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet.
-          ['<C-y>'] = cmp.mapping.confirm { select = true },
+          -- ['<C-y>'] = cmp.mapping.confirm { select = true },
 
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
-          --['<CR>'] = cmp.mapping.confirm { select = true },
-          --['<Tab>'] = cmp.mapping.select_next_item(),
-          --['<S-Tab>'] = cmp.mapping.select_prev_item(),
+          ['<CR>'] = cmp.mapping.confirm { select = true },
+          ['<Tab>'] = cmp.mapping.select_next_item(),
+          ['<S-Tab>'] = cmp.mapping.select_prev_item(),
 
           -- Manually trigger a completion from nvim-cmp.
           --  Generally you don't need this, because nvim-cmp will display
@@ -907,45 +943,6 @@ require('lazy').setup({
     },
   },
 })
-
-local rt = require 'rust-tools'
-
-rt.setup {
-  tools = {
-    reload_workspace_from_cargo_toml = true,
-    hover_actions = {
-      auto_focus = true,
-    },
-  },
-  server = {
-    capabilities = capabilities,
-    on_attach = on_attach,
-    standalone = false,
-    settings = {
-      ['rust-analyzer'] = {
-        cargo = {
-          buildScripts = {
-            enable = true,
-          },
-        },
-        procMacro = {
-          enable = true,
-        },
-        checkOnSave = {
-          allFeatures = true,
-          overrideCommand = {
-            'cargo',
-            'clippy',
-            '--workspace',
-            '--message-format=json',
-            '--all-targets',
-            '--all-features',
-          },
-        },
-      },
-    },
-  },
-}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
