@@ -724,7 +724,6 @@ require('lazy').setup({
             require('lspconfig')[server_name].setup(server)
           end,
         },
-        ensure_installed = { 'pyright' },
       }
 
       require('rust-tools').setup {
@@ -790,7 +789,7 @@ require('lazy').setup({
           return nil
         else
           return {
-            timeout_ms = 1000,
+            async = true,
             lsp_format = 'fallback',
           }
         end
@@ -866,6 +865,8 @@ require('lazy').setup({
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
         preset = 'default',
+        ['<Tab>'] = { 'accept' },
+        ['<CR>'] = { 'accept', 'fallback' },
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
