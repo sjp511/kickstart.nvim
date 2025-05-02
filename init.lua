@@ -665,7 +665,18 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        -- pyright = {},
+        pyright = {
+          settings = {
+            python = {
+              analysis = {
+                autoSearchPaths = true,
+                diagnosticMode = 'openFilesOnly',
+                useLibraryCodeForTypes = true,
+                typeCheckingMode = 'basic',
+              },
+            },
+          },
+        },
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -725,42 +736,6 @@ require('lazy').setup({
           end,
         },
       }
-
-      require('rust-tools').setup {
-        tools = {
-          reload_workspace_from_cargo_toml = true,
-          hover_actions = {
-            auto_focus = true,
-          },
-        },
-        server = {
-          capabilities = capabilities,
-          standalone = false,
-          settings = {
-            ['rust-analyzer'] = {
-              cargo = {
-                buildScripts = {
-                  enable = true,
-                },
-              },
-              procMacro = {
-                enable = true,
-              },
-              checkOnSave = {
-                allFeatures = true,
-                overrideCommand = {
-                  'cargo',
-                  'clippy',
-                  '--workspace',
-                  '--message-format=json',
-                  '--all-targets',
-                  '--all-features',
-                },
-              },
-            },
-          },
-        },
-      }
     end,
   },
 
@@ -798,7 +773,7 @@ require('lazy').setup({
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
         rust = { 'rustfmt', lsp_format = 'fallback' },
-        python = { 'isort', 'black' },
+        python = { 'black' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
