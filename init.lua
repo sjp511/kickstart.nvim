@@ -614,6 +614,9 @@ require('lazy').setup({
             map('<leader>th', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, '[T]oggle Inlay [H]ints')
+
+            -- Enable inlay hints by default
+            vim.lsp.inlay_hint.enable()
           end
         end,
       })
@@ -677,7 +680,7 @@ require('lazy').setup({
             },
           },
         },
-        -- rust_analyzer = {},
+        rust_analyzer = { enabled = false },
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -840,7 +843,6 @@ require('lazy').setup({
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
         preset = 'default',
-        ['<Tab>'] = { 'accept' },
         ['<CR>'] = { 'accept', 'fallback' },
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
