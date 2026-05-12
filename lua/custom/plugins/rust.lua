@@ -20,7 +20,7 @@ return {
 
   {
     'mrcjkb/rustaceanvim',
-    version = '^6', -- Recommended
+    version = '^9',
     opts = {
       server = {
         default_settings = {
@@ -33,11 +33,9 @@ return {
                 enable = true,
               },
             },
-            -- Add clippy lints for Rust if using rust-analyzer
-            checkOnSave = diagnostics == 'rust-analyzer',
-            -- Enable diagnostics if using rust-analyzer
+            checkOnSave = true,
             diagnostics = {
-              enable = diagnostics == 'rust-analyzer',
+              enable = true,
             },
             procMacro = {
               enable = true,
