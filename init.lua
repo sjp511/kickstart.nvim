@@ -698,6 +698,7 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers)
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'black', -- Python formatter
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -734,6 +735,7 @@ require('lazy').setup({
           return nil
         else
           return {
+            timeout_ms = 5000,
             lsp_format = 'fallback',
           }
         end
