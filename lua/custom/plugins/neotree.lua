@@ -12,6 +12,8 @@ return {
         filtered_items = {
           visible = true,
         },
+        -- Watch the filesystem and refresh the tree automatically on changes
+        use_libuv_file_watcher = true,
       },
     }
   end,
